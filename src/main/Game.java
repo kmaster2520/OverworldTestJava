@@ -13,8 +13,6 @@ import java.awt.event.KeyListener;
  */
 public class Game extends JPanel {
 
-
-
     public static final int WIDTH = 800;
     public static final int HEIGHT = 640;
 
