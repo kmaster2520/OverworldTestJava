@@ -1,0 +1,8 @@
+Test Map 2
+fantasy
+xxxxxxxxxxxxxxxxxxxxx
+x...................x
+x.................xxx
+x................xx
+x.............xxxx
+xxxxxxxxxxxxxxx

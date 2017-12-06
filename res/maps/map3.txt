@@ -1,0 +1,22 @@
+Test Map 3
+fantasy
+xxxxxxxxxxxxxxxxxxdxxxxxx
+x.......................x
+x.......................x
+x...xxxxxxxxxxxxxxxx....x
+x..................x....x
+x..................x....x
+x..................x....x
+x...xxxxxxxxxxxxxxxx....x
+x..................x....x
+x..................x....x
+x..................x....x
+x...xxxxxxxxxxxxxxxx....x
+x.......................x
+x......xxxxxxxxx........x
+x......xlllllllx....x...x
+x......xlllllllx........x
+x......xlllllllx........x
+x......xxxxxxxxx........x
+x.......................x
+xxxxxxxxxxxxxxxxxxxxxxxxx
