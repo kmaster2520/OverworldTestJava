@@ -5,7 +5,7 @@ package util;
  */
 public class Camera {
 
-    private double x, y;
+    private double x, y; // top left coordinates
 
     public Camera(double x, double y) {
         this.x = x;

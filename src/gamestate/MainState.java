@@ -15,15 +15,13 @@ public class MainState implements GameState {
 
     private Camera cam;
 
-    private int bx, by, bspd;
+    private int bspd;
     private TileMap tileMap;
 
     private boolean playerUp, playerDown, playerLeft, playerRight;
 
     public MainState() {
         cam = new Camera(0, 0);
-        bx = 32;
-        by = 32;
         bspd = 4;
 
         tileMap = Assets.tileMap("map3");
@@ -32,20 +30,16 @@ public class MainState implements GameState {
     @Override
     public void tick(long now) {
         if (playerUp) {
-            by -= bspd;
-            cam.shiftY(bspd);
-        }
-        if (playerDown) {
-            by += bspd;
             cam.shiftY(-bspd);
         }
+        if (playerDown) {
+            cam.shiftY(bspd);
+        }
         if (playerRight) {
-            bx += bspd;
-            cam.shiftX(-bspd);
+            cam.shiftX(bspd);
         }
         if (playerLeft) {
-            bx -= bspd;
-            cam.shiftX(bspd);
+            cam.shiftX(-bspd);
         }
     }
 
@@ -54,11 +48,11 @@ public class MainState implements GameState {
         g.setColor(Color.black);
         g.fillRect(0, 0, Game.WIDTH, Game.HEIGHT);
 
-        g.translate((int) cam.getX(), (int) cam.getY());
-
-        tileMap.drawTiles(g);
-
         g.translate((int) -cam.getX(), (int) -cam.getY());
+
+        tileMap.drawTiles(g, (int) cam.getX(), (int) cam.getY(), Game.WIDTH, Game.HEIGHT);
+
+        g.translate((int) cam.getX(), (int) cam.getY());
 
         g.setColor(Color.red);
         g.fillRect(384, 320, 32, 32);

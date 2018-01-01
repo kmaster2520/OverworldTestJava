@@ -2,6 +2,7 @@ package map;
 
 import assets.Assets;
 import javafx.scene.image.ImageView;
+import main.Game;
 import util.ImageLoader;
 import util.PathJoiner;
 import util.TextFileReader;
@@ -83,6 +84,14 @@ public class TileMap {
     public void drawTiles(Graphics g) {
         for (Point p : tiles.keySet()) {
             g.drawImage(tiles.get(p).getImage(), p.x, p.y, null);
+        }
+    }
+
+    public void drawTiles(Graphics g, int cx, int cy, int cw, int ch) {
+        for (Point p : tiles.keySet()) {
+            if (cx <= p.x + tiles.get(p).getWidth() && p.x < cx + cw && cy <= p.y + tiles.get(p).getHeight() && p.y <= cy + ch) {
+                g.drawImage(tiles.get(p).getImage(), p.x, p.y, null);
+            }
         }
     }
 
