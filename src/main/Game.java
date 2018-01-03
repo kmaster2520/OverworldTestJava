@@ -42,7 +42,7 @@ public class Game extends JPanel {
 
         addKeyListener(listener);
         setFocusable(true);
-
+        requestFocusInWindow();
 
     }
 

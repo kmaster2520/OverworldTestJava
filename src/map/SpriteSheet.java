@@ -9,6 +9,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.SynchronousQueue;
+import java.util.function.BooleanSupplier;
 
 /**
  * Created by Sathvik on 11/27/17.
@@ -23,6 +25,7 @@ public class SpriteSheet {
     private BufferedImage image;
 
     private Map<Character, BufferedImage> charConversions;
+    private Map<Character, Boolean> solidConversions;
 
     /**
      * Creates Spritesheet with name and tile size
@@ -37,7 +40,6 @@ public class SpriteSheet {
 
         // read spritesheet
         File file = PathJoiner.getFile("res", "spritesheets", name + ".png");
-        //System.out.println(file.toString());
         try {
             this.image = ImageLoader.loadImage(file);
         } catch (IOException e) {
@@ -47,21 +49,24 @@ public class SpriteSheet {
         // get conversions from chars to tile images
         File convertFile = PathJoiner.getFile("res", "spritesheetconversions", name + ".txt");
         charConversions = new HashMap<>();
+        solidConversions = new HashMap<>();
         try {
             TextFileReader fr = new TextFileReader(convertFile);
             char ch = (char) fr.read();
             fr.read(); // read empty space after char
             while (ch > 0 && ch < 128) {
-                System.out.println(ch);
                 int r = fr.readInt();
                 int c = fr.readInt();
-                System.out.println(r + " " + c);
+                boolean isSolid = fr.readInt() == 1;
                 BufferedImage tileImg = getTileAt(r, c);
                 charConversions.put(ch, tileImg); // map char to tile image
+                solidConversions.put(ch, isSolid); // map char to is solid
                 //
                 ch = (char) fr.read();
                 fr.read();
             }
+            System.out.println(charConversions);
+            System.out.println(solidConversions);
             fr.close();
         } catch (IOException e) {
             System.out.println("File not found: " + convertFile.toString());
@@ -87,6 +92,10 @@ public class SpriteSheet {
      */
     public BufferedImage getImageForChar(char c) {
         return charConversions.get(c);
+    }
+
+    public boolean isSolidChar(char c) {
+        return solidConversions.get(c);
     }
 
     public int getTileSizeW() {

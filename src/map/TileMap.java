@@ -56,13 +56,15 @@ public class TileMap {
                     continue; // ignore spaces
                 }
                 BufferedImage img = spriteSheet.getImageForChar(ch);
+
                 if (img == null) {
                     ch = (char) fr.read();
                     continue; // continue if no image found for char
                 }
+                boolean isSolid = spriteSheet.isSolidChar(ch);
                 //
                 tiles.put(new Point(x * tileSizeW, y * tileSizeH),
-                        new Tile(img, x * tileSizeW, y * tileSizeH, tileSizeW, tileSizeH, false ));
+                        new Tile(img, x * tileSizeW, y * tileSizeH, tileSizeW, tileSizeH, isSolid ));
 
                 ch = (char) fr.read();
             }
@@ -81,12 +83,48 @@ public class TileMap {
         return tiles;
     }
 
+    /**
+     * Check if given bounds intersects a solid tile
+     * @param x
+     * @param y
+     * @param w
+     * @param h
+     * @return true if intersect solid tile
+     */
+    public boolean doesOverlapSolid(int x, int y, int w, int h) {
+        for (Point p : tiles.keySet()) {
+            int tw = tiles.get(p).getWidth();
+            int th = tiles.get(p).getHeight();
+            boolean isSolid = tiles.get(p).isSolid();
+            if (isSolid) {
+                int maxw = Math.max(x + w - p.x, p.x + tw - x);
+                int maxh = Math.max(y + h - p.y, p.y + th - y);
+                if (maxw < w + tw && maxh < h + th) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Draw tiles to screen
+     * @param g Graphics object
+     */
     public void drawTiles(Graphics g) {
         for (Point p : tiles.keySet()) {
             g.drawImage(tiles.get(p).getImage(), p.x, p.y, null);
         }
     }
 
+    /**
+     * Draw tiles that are in view given top let corner and dimensions of screen
+     * @param g Graphics object
+     * @param cx
+     * @param cy
+     * @param cw
+     * @param ch
+     */
     public void drawTiles(Graphics g, int cx, int cy, int cw, int ch) {
         for (Point p : tiles.keySet()) {
             if (cx <= p.x + tiles.get(p).getWidth() && p.x < cx + cw && cy <= p.y + tiles.get(p).getHeight() && p.y <= cy + ch) {
