@@ -27,7 +27,7 @@ public class MainState implements GameState {
 
         playerx = 384;
         playery = 320;
-        playerw = 32;
+        playerw = 24;
 
         tileMap = Assets.tileMap("map3");
     }

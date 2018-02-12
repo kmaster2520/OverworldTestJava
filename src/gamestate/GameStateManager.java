@@ -14,14 +14,25 @@ public class GameStateManager {
         gsm = new Stack<>();
     }
 
+    /**
+     * adds new gamestate to stack
+     * @param gs new gamestate
+     */
     public void push(GameState gs) {
         gsm.push(gs);
     }
 
+    /**
+     * removes top gamestate
+     */
     public void pop() {
         gsm.pop();
     }
 
+    /**
+     * replaces top gamestate
+     * @param gs the new gamestate
+     */
     public void set(GameState gs) {
         pop();
         push(gs);
